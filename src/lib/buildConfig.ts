@@ -24,5 +24,5 @@ export const buildConfig = (destinationPath: string) => {
 
   fs.writeFileSync(path.resolve(destinationPath, '.env'), envContent);
 
-  console.log('config.json has been created with the specified settings.');
+  console.log('build has been created with the specified settings.');
 }
