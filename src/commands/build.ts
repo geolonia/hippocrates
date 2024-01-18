@@ -1,16 +1,16 @@
 import path from 'path'
 import { copyFiles } from '../lib/copyFiles'
+import { excelToGeoJson } from '../lib/excel2geojson'
 
-export function build(source: string, destination: string) {
+export const build = async (source: string, destination: string) => {
 
   const sourcePath = path.resolve(process.cwd(), source || '.')
   const destinationPath = path.resolve(process.cwd(), destination || './dist')
 
-  copyFiles(sourcePath, destinationPath);
-
-  // sourcePath で指定されたディレクトリ内にある .xlsx か .csv か .geojson を destinationPath で指定されたディレクトリに コピーする。
-  console.log('build', sourcePath, destinationPath)
-
+  // sourcePath 内の Excel/CSV を geojson に変換する
+  await excelToGeoJson(sourcePath);
+  // 生成した geojson ファイルを dist ディレクトリにコピーする
+  copyFiles(sourcePath, destinationPath, '.geojson');
 
   // const sourcePath = path.resolve(process.cwd(), source)
 

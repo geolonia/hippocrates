@@ -1,7 +1,7 @@
 import path from 'path'
 import * as fs from 'fs';
 
-export const copyFiles = (sourcePath: string, destinationPath: string) => {
+export const copyFiles = (sourcePath: string, destinationPath: string, targetExt: string) => {
 
   // ディレクトリが存在しない場合、作成する
   if (!fs.existsSync(destinationPath)) {
@@ -15,8 +15,8 @@ export const copyFiles = (sourcePath: string, destinationPath: string) => {
   files.forEach(file => {
     const ext = path.extname(file);
 
-    // ファイルが.xlsx、.csv、.geojsonのいずれかである場合、コピーを行う
-    if (ext === '.xlsx' || ext === '.csv' || ext === '.geojson') {
+    // ファイルが引数で指定されたファイルである場合、コピーを行う
+    if (ext === targetExt) {
       const sourceFile = path.join(sourcePath, file);
       const destinationFile = path.join(destinationPath, file);
 

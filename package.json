@@ -15,10 +15,14 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "commander": "^8.2.0"
+    "commander": "^8.2.0",
+    "csv2geojson": "^5.1.2",
+    "klaw": "^4.1.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"
   },
   "devDependencies": {
     "@types/commander": "^2.12.2",
+    "@types/klaw": "^3.0.6",
     "@types/node": "^14.0.14",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.5"
