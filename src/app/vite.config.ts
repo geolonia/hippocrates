@@ -9,6 +9,6 @@ export default defineConfig({
   ],
   build: {
     // 出力ディレクトリの指定
-    outDir: path.resolve(process.cwd(), 'dist'),
+    outDir: path.resolve(process.cwd(), 'build'),
   }
 });

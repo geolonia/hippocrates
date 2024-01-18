@@ -10,9 +10,7 @@
     "watch": "tsc -w",
     "lint": "eslint .",
     "fix": "eslint --fix .",
-    "command": "./node_modules/.bin/ts-node ./src/cli.ts",
-    "build:app": "cd src/app/ && tsc && vite build",
-    "dev:app": "cd src/app/ && vite"
+    "command": "./node_modules/.bin/ts-node ./src/cli.ts"
   },
   "settings": {
     "title": "Geolonia PWAマップ",
