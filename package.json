@@ -1,0 +1,26 @@
+{
+  "name": "hippocrates",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "vt-style": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "watch": "tsc -w",
+    "lint": "eslint .",
+    "fix": "eslint --fix .",
+    "command": "./node_modules/.bin/ts-node ./src/cli.ts"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/node": "^14.0.14",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  }
+}
