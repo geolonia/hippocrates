@@ -1,12 +1,17 @@
 import path from 'path'
-// import fs from 'fs'
+import { copyFiles } from '../lib/copyFiles'
 
 export function build(source: string, destination: string) {
 
   const sourcePath = path.resolve(process.cwd(), source || '.')
   const destinationPath = path.resolve(process.cwd(), destination || './dist')
 
+  copyFiles(sourcePath, destinationPath);
+
+  // sourcePath で指定されたディレクトリ内にある .xlsx か .csv か .geojson を destinationPath で指定されたディレクトリに コピーする。
   console.log('build', sourcePath, destinationPath)
+
+
   // const sourcePath = path.resolve(process.cwd(), source)
 
   // let destinationPath = ""
