@@ -34,15 +34,14 @@ const _excelToJson = async (inputDir: string, outputDir: string) => {
 
 
     } else if (file.path.endsWith(".geojson")) {
+      // TODO: GeoJSON を data.json 形式に変換する
       // geojson の場合は 拡張子を json にしてoutputDir にコピーする
-      const fileName = file.path.replace(/^.*[\\\/]/, '');
-      const jsonFileName = fileName.replace(/.geojson$/, '.json');
-      promises.push(copyFile(file.path, path.resolve(outputDir, jsonFileName)));
+      promises.push(copyFile(file.path, path.resolve(outputDir, 'data.json')));
+      // 1ファイルのみを対象にするために break する
+      break;
     }
 
     if (csvData) {
-      const fileName = file.path.replace(/^.*[\\\/]/, '');
-      const geoJsonFileName = fileName.replace(/.csv$|.xlsx$/, '.json');
 
       try {
 
@@ -62,13 +61,15 @@ const _excelToJson = async (inputDir: string, outputDir: string) => {
             return value;
           },
           complete: async (results: any) => {
-            await writeFile(path.resolve(outputDir, geoJsonFileName), JSON.stringify(results.data));
+            await writeFile(path.resolve(outputDir, 'data.json'), JSON.stringify(results.data));
           }
         });
 
       } catch (err) {
         throw new ConversionError("csvToGeoJson", file.path);
       }
+      // 1ファイルのみを対象にするために break する
+      break;
     }
   }
 
