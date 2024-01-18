@@ -28,7 +28,7 @@ const App = () => {
   const [shopList, setShopList] = React.useState<Pwamap.ShopData[]>([])
 
   React.useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}/data.json?timestamp=${new Date().getTime()}`)
+    fetch(`/data.json?timestamp=${new Date().getTime()}`)
       .then((response) => {
         return response.ok ? response.text() : Promise.reject(response.status);
       })
@@ -36,13 +36,7 @@ const App = () => {
 
         const data = JSON.parse(fetchedData)
 
-        if ('values' in data === false) {
-          console.log("No Data Found at Spreadsheet")
-          setShopList([])
-          return
-        }
-
-        let features = table2json(data.values);
+        let features = table2json(data);
 
         const nextShopList: Pwamap.ShopData[] = []
         for (let i = 0; i < features.length; i++) {
