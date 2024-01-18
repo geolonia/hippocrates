@@ -10,7 +10,9 @@
     "watch": "tsc -w",
     "lint": "eslint .",
     "fix": "eslint --fix .",
-    "command": "./node_modules/.bin/ts-node ./src/cli.ts"
+    "command": "./node_modules/.bin/ts-node ./src/cli.ts",
+    "build:app": "dist に build するコマンドを追加"
+
   },
   "author": "",
   "license": "MIT",
