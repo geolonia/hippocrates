@@ -76,3 +76,5 @@ typings/
 .serverless
 
 dist
+
+tests/fixtures/*.geojson
