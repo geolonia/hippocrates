@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ImageList, ImageListItem } from '@material-ui/core'
+import { ImageList, ImageListItem } from '@mui/material'
 import Shop from './Shop'
 import './Images.scss'
 

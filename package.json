@@ -11,22 +11,36 @@
     "lint": "eslint .",
     "fix": "eslint --fix .",
     "command": "./node_modules/.bin/ts-node ./src/cli.ts",
-    "build:app": "dist に build するコマンドを追加"
-
+    "build:app": "cd src/app/ && tsc && vite build"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "commander": "^8.2.0",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mapbox/geojson-extent": "^1.0.1",
+    "@mui/material": "^5.15.5",
+    "@turf/turf": "^6.5.0",
+    "commander": "^11.1.0",
     "csv2geojson": "^5.1.2",
     "klaw": "^4.1.0",
+    "next-qrcode": "^2.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.0.1",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-router-dom": "^6.21.2",
+    "react-select": "^5.8.0",
+    "react-share": "^5.0.3",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"
   },
   "devDependencies": {
-    "@types/commander": "^2.12.2",
     "@types/klaw": "^3.0.6",
-    "@types/node": "^14.0.14",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.5"
+    "@types/node": "^20.11.5",
+    "@vitejs/plugin-react": "^4.2.1",
+    "sass": "^1.70.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11"
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from "react-router-dom";
 import Container from './Container';
-import './index.scss'
+import './main.scss'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 ReactDOM.render(
