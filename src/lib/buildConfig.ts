@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-export const buildConfig = (destinationPath: string) => {
+export const buildConfig = async (destinationPath: string) => {
 
   const packageJSONPath = path.resolve(process.cwd(), 'package.json');
 

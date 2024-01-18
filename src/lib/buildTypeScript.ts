@@ -1,17 +1,17 @@
-import { exec } from "child_process";
 import path from "path";
+import { execPromise } from "./execPromise";
 
-export const buildTypeScript = () => {
+export const buildTypeScript = async () => {
 
   const configPath = path.resolve(process.cwd(), 'src', 'app', 'vite.config.ts');
 
-  exec(`tsc && vite build --config ${configPath} --emptyOutDir`, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`実行エラー: ${error}`);
-      return;
+  try {
+    const { stderr } = await execPromise(`tsc && vite build --config ${configPath} --emptyOutDir`);
+    if (stderr) {
+      console.error(`stderr: ${stderr}`);
     }
-    console.log(`stdout: ${stdout}`);
-    console.error(`stderr: ${stderr}`);
-  });
+  } catch (error) {
+    console.error(`実行エラー: ${error}`);
+  }
 
 }

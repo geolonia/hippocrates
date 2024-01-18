@@ -3,7 +3,7 @@ import { excelToJson } from '../lib/excel2json'
 import { buildConfig} from '../lib/buildConfig'
 import { buildTypeScript } from '../lib/buildTypeScript'
 
-export const build = async (source: string) => {
+export const build = async (source: string | undefined) => {
 
   const sourcePath = path.resolve(process.cwd(), source || '.')
   const appConfigPath = path.resolve(__dirname, '..', 'app', 'src');
@@ -13,8 +13,8 @@ export const build = async (source: string) => {
   await excelToJson(sourcePath, publicPath);
 
   // config.json と .env を生成する
-  buildConfig(appConfigPath);
+  await buildConfig(appConfigPath);
 
   // TypeScript をビルドする
-  buildTypeScript();
+  await buildTypeScript();
 }
