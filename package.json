@@ -6,11 +6,12 @@
     "hippocrates": "dist/cli.js"
   },
   "scripts": {
-    "build": "tsc -p .",
+    "build": "tsc -p . && npm run build:app",
     "watch": "tsc -w",
     "lint": "eslint .",
     "fix": "eslint --fix .",
-    "command": "./node_modules/.bin/ts-node ./src/cli.ts"
+    "command": "./node_modules/.bin/ts-node ./src/cli.ts",
+    "build:app": "cd src/app/ && vite build"
   },
   "settings": {
     "title": "Geolonia PWAマップ",
