@@ -66,7 +66,6 @@ const Content = (props: Props) => {
     // prevent memory leak
     if (isMounted) {
 
-      // @ts-ignore
       const orderBy = import.meta.env.VITE_ORDERBY
 
       if (orderBy === 'distance') {

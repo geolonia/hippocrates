@@ -12,7 +12,7 @@ export const buildConfig = (destinationPath: string) => {
   const settings = packageJson.settings;
 
   // config.json として保存する
-  fs.writeFileSync(path.resolve(destinationPath, 'src', 'config.json'), JSON.stringify(settings, null, 2));
+  fs.writeFileSync(path.resolve(destinationPath, 'config.json'), JSON.stringify(settings, null, 2));
 
 
   // .env 形式での文字列を生成する
