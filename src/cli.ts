@@ -7,9 +7,8 @@ import { build } from './commands/build'
 const program = new Command();
 
 program
-  .command('build <source> [destination]')
-  .description('build a style JSON from the YAML')
+  .command('build [source] [destination]')
+  .description('build a csv/excel file to geojson, and prepare application files')
   .action(build);
-
 
 program.parse(process.argv)

@@ -1,9 +1,12 @@
 import path from 'path'
-import fs from 'fs'
+// import fs from 'fs'
 
 export function build(source: string, destination: string) {
 
-  console.log('build', source, destination)
+  const sourcePath = path.resolve(process.cwd(), source || '.')
+  const destinationPath = path.resolve(process.cwd(), destination || './dist')
+
+  console.log('build', sourcePath, destinationPath)
   // const sourcePath = path.resolve(process.cwd(), source)
 
   // let destinationPath = ""
