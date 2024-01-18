@@ -78,3 +78,5 @@ typings/
 dist
 
 tests/fixtures/*.geojson
+
+src/app/public/data.json
