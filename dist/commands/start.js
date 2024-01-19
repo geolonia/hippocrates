@@ -10,9 +10,10 @@ const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const start = async (source) => {
     await (0, build_1.build)(source);
-    const distPath = path_1.default.resolve(process.cwd(), 'dist');
+    const distPath = path_1.default.resolve(process.cwd(), 'build');
+    console.log(distPath);
     if (!fs_1.default.existsSync(distPath)) {
-        console.error('dist ディレクトリが存在しません。ビルドを実行してください。');
+        console.error('build/ ディレクトリが存在しません。');
         return;
     }
     try {
