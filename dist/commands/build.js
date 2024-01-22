@@ -9,12 +9,14 @@ exports.build = void 0;
 // // import { buildConfig} from '../lib/buildConfig'
 // // import { buildTypeScript } from '../lib/buildTypeScript'
 // import { copyDirectory } from '../lib/copyDirectory'
+const buildTypeScript_1 = require("../lib/buildTypeScript");
 const defaultValues_1 = require("../lib/defaultValues");
 const fs_1 = __importDefault(require("fs"));
 const build = async (source) => {
     console.log(source);
     console.log(defaultValues_1.defaultValues.providerDir);
     fs_1.default.mkdirSync(defaultValues_1.defaultValues.buildDir, { recursive: true });
+    await (0, buildTypeScript_1.buildTypeScript)();
     // const workingDirPath = process.cwd();
     // const basePath = path.resolve((process.cwd(), 'node_modules/hippocrates'))
     // const buildPath = path.resolve(workingDirPath, 'build');
