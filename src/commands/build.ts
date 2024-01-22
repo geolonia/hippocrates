@@ -4,17 +4,22 @@
 // // import { buildTypeScript } from '../lib/buildTypeScript'
 // import { copyDirectory } from '../lib/copyDirectory'
 import { buildTypeScript } from '../lib/buildTypeScript'
-import  { defaultValues } from '../lib/defaultValues'
-import fs from 'fs'
+// import fs from 'fs'
 
 export const build = async (source: string | undefined) => {
 
   console.log(source)
-  console.log(defaultValues.providerDir)
 
-  fs.mkdirSync(defaultValues.buildDir, { recursive: true })
+  // 環境変数を設定
+  const envVars = {
+    MY_VAR: 'some value',
+    ANOTHER_VAR: 'another value'
+  };
 
-  await buildTypeScript()
+  // 現在の環境変数にカスタム環境変数をマージ
+  const env = Object.assign({}, process.env, envVars);
+
+  await buildTypeScript(env)
 
   // const workingDirPath = process.cwd();
   // const basePath = path.resolve((process.cwd(), 'node_modules/hippocrates'))

@@ -1,7 +1,4 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.build = void 0;
 // import path from 'path'
@@ -10,13 +7,17 @@ exports.build = void 0;
 // // import { buildTypeScript } from '../lib/buildTypeScript'
 // import { copyDirectory } from '../lib/copyDirectory'
 const buildTypeScript_1 = require("../lib/buildTypeScript");
-const defaultValues_1 = require("../lib/defaultValues");
-const fs_1 = __importDefault(require("fs"));
+// import fs from 'fs'
 const build = async (source) => {
     console.log(source);
-    console.log(defaultValues_1.defaultValues.providerDir);
-    fs_1.default.mkdirSync(defaultValues_1.defaultValues.buildDir, { recursive: true });
-    await (0, buildTypeScript_1.buildTypeScript)();
+    // 環境変数を設定
+    const envVars = {
+        MY_VAR: 'some value',
+        ANOTHER_VAR: 'another value'
+    };
+    // 現在の環境変数にカスタム環境変数をマージ
+    const env = Object.assign({}, process.env, envVars);
+    await (0, buildTypeScript_1.buildTypeScript)(env);
     // const workingDirPath = process.cwd();
     // const basePath = path.resolve((process.cwd(), 'node_modules/hippocrates'))
     // const buildPath = path.resolve(workingDirPath, 'build');

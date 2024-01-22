@@ -5,6 +5,8 @@ import { HashRouter } from "react-router-dom";
 import './main.scss'
 // import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
+console.log('process.env', process.env)
+
 ReactDOM.render(
   <React.StrictMode>
     <HashRouter>
