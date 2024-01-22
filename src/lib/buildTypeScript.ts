@@ -4,7 +4,10 @@ import { defaultValues } from "./defaultValues";
 
 export const buildTypeScript = async () => {
   try {
-    const { stderr } = await execPromise(`tsc -p ${path.join(defaultValues.providerDir, 'tsconfig.json')}`);
+    const { stdout, stderr } = await execPromise(`tsc -p ${path.join(defaultValues.providerDir, 'tsconfig.json')}`);
+
+    console.log(`stdout: ${stdout}`);
+
     if (stderr) {
       console.error(`stderr: ${stderr}`);
     }
