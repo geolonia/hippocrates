@@ -43,16 +43,16 @@
     "react-router-dom": "^6.21.2",
     "react-select": "^5.8.0",
     "react-share": "^5.0.3",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz",
+    "@types/react-dom": "^18.2.18",
+    "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@types/klaw": "^3.0.6",
     "@types/node": "^20.11.5",
     "@types/papaparse": "^5.3.14",
-    "@types/react-dom": "^18.2.18",
     "@vitejs/plugin-react": "^4.2.1",
     "sass": "^1.70.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "ts-node": "^10.9.2"
   }
 }
