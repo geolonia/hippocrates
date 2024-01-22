@@ -30,6 +30,7 @@
     "@mapbox/geojson-extent": "^1.0.1",
     "@mui/material": "^5.15.5",
     "@turf/turf": "^6.5.0",
+    "@types/react-dom": "^18.2.18",
     "commander": "^11.1.0",
     "csv2geojson": "^5.1.2",
     "http-server": "^14.1.1",
@@ -43,9 +44,8 @@
     "react-router-dom": "^6.21.2",
     "react-select": "^5.8.0",
     "react-share": "^5.0.3",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz",
-    "@types/react-dom": "^18.2.18",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"
   },
   "devDependencies": {
     "@types/klaw": "^3.0.6",
