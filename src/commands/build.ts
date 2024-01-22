@@ -4,11 +4,14 @@
 // // import { buildTypeScript } from '../lib/buildTypeScript'
 // import { copyDirectory } from '../lib/copyDirectory'
 import  { defaultValues } from '../lib/defaultValues'
+import fs from 'fs'
 
 export const build = async (source: string | undefined) => {
 
   console.log(source)
   console.log(defaultValues.providerDir)
+
+  fs.mkdirSync(defaultValues.buildDir, { recursive: true })
 
   // const workingDirPath = process.cwd();
   // const basePath = path.resolve((process.cwd(), 'node_modules/hippocrates'))
