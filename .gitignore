@@ -81,3 +81,5 @@ tests/fixtures/*.geojson
 src/app/public/data.json
 
 provider/build
+provider/data.geojson
+provider/config.json
