@@ -53,9 +53,9 @@ const Content = (props: Props) => {
   const [shop, setShop] = React.useState<Pwamap.ShopData | undefined>(undefined)
   const [ zLatLngString, setZLatLngString ] = React.useState<string>('');
 
-  const addMarkers = (mapObject: any, data: any) => {
+  const addMarkers = (mapObject: any) => {
 
-    if (!mapObject || !data) {
+    if (!mapObject) {
       return
     }
 
@@ -71,11 +71,10 @@ const Content = (props: Props) => {
       const textColor = '#000000'
       const textHaloColor = '#FFFFFF'
 
-      const geojson = toGeoJson(data)
 
       mapObject.addSource('shops', {
         type: 'geojson',
-        data: geojson,
+        data: './data.geojson',
         cluster: true,
         clusterMaxZoom: 14,
         clusterRadius: 25,
@@ -160,9 +159,9 @@ const Content = (props: Props) => {
 
   React.useEffect(() => {
 
-    addMarkers(mapObject, props.data)
+    addMarkers(mapObject)
 
-  }, [mapObject, props.data])
+  }, [mapObject])
 
   React.useEffect(() => {
     const hash = parseHash();
