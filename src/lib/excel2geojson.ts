@@ -5,9 +5,9 @@ import klaw from 'klaw';
 import csv2geojson from 'csv2geojson';
 import ConversionError from './error';
 import path from 'path';
-import Papa from 'papaparse';
+import { defaultValues } from './defaultValues';
 
-const _excelToJson = async (inputDir: string, outputDir: string) => {
+const _excelToGeojson = async (inputDir: string) => {
   const promises: any[] = [];
 
   // 指定したディレクトリ直下のファイルのみを対象にする
@@ -27,16 +27,16 @@ const _excelToJson = async (inputDir: string, outputDir: string) => {
           }
         }
 
-        throw new ConversionError("excelToJson", excelPath);
+        throw new ConversionError("excelToGeojson", excelPath);
       }
     } else if (file.path.endsWith(".csv")) {
       csvData = await readFile(file.path, 'utf-8');
 
 
     } else if (file.path.endsWith(".geojson")) {
-      // TODO: GeoJSON を data.json 形式に変換する
-      // geojson の場合は 拡張子を json にしてoutputDir にコピーする
-      promises.push(copyFile(file.path, path.resolve(outputDir, 'data.json')));
+      // TODO: GeoJSON を data.geojson 形式に変換する
+      // geojson の場合は 拡張子を json にしてdefaultValues.providerDir にコピーする
+      promises.push(copyFile(file.path, path.resolve(defaultValues.providerDir, 'data.geojson')));
       // 1ファイルのみを対象にするために break する
       break;
     }
@@ -45,25 +45,11 @@ const _excelToJson = async (inputDir: string, outputDir: string) => {
 
       try {
 
-        Papa.parse(csvData, {
-          skipEmptyLines: true,
-          quoteChar: '"',
-          transform: (value) => {
-            // 空の値の場合は空白に置き換える
-            if (value === '') {
-              return '';
-            }
-            // 数値の場合は文字列に変換
-            if (!isNaN(parseFloat(value))) {
-              return value.toString();
-            }
-            // それ以外の場合は元の値をそのまま使用
-            return value;
-          },
-          complete: async (results: any) => {
-            await writeFile(path.resolve(outputDir, 'data.json'), JSON.stringify(results.data));
-          }
-        });
+        csv2geojson.csv2geojson(
+          csvData,
+          async (_err: any, geojson: any) => {
+            await writeFile(path.resolve(defaultValues.providerDir, 'data.geojson'), JSON.stringify(geojson));
+          });
 
       } catch (err) {
         throw new ConversionError("csvToGeoJson", file.path);
@@ -76,13 +62,13 @@ const _excelToJson = async (inputDir: string, outputDir: string) => {
   await Promise.all(promises);
 }
 
-export const excelToJson = async (inputDir: string, outputDir: string) => {
+export const excelToGeojson = async (inputDir: string) => {
   try {
-    await _excelToJson(inputDir, outputDir);
+    await _excelToGeojson(inputDir);
   } catch (err) {
     if (err instanceof ConversionError) {
       switch (err.conversionType) {
-        case "excelToJson":
+        case "excelToGeojson":
           throw new Error(`Error: Excel ファイルを ${err.filePath} GeoJSON に変換できませんでした。`);
           break;
         case "fileEnded":
