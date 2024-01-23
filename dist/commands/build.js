@@ -16,7 +16,7 @@ const build = async (_source) => {
     // 環境変数を設定
     const envVars = {
         PUBLIC_URL: '.',
-        ANOTHER_VAR: 'another value'
+        SKIP_PREFLIGHT_CHECK: true
     };
     // 現在の環境変数にカスタム環境変数をマージ
     const env = Object.assign({}, process.env, envVars);
