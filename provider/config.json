@@ -1,0 +1,11 @@
+{
+  "REACT_APP_TITLE": "Geolonia PWAマップあああいい",
+  "REACT_APP_DESCRIPTION": "Google スプレッドシートを更新するだけでオリジナルの地図アプリを作成できる「Geolonia PWAマップ」",
+  "REACT_APP_FORM_URL": "",
+  "REACT_APP_LOGO_IMAGE_URL": "https://geoloniamaps.github.io/pwamap/icon-pwamap.svg",
+  "REACT_APP_BACKGROUND_IMAGE_URL": "https://geoloniamaps.github.io/pwamap/geolonia_bgimage_1920_1080.png",
+  "REACT_APP_PRIMARY_COLOR": "#d2691e",
+  "REACT_APP_ORDERBY": "distance",
+  "REACT_APP_HOMEPAGE_URL": "https://geoloniamaps.github.io/pwamap/",
+  "SKIP_PREFLIGHT_CHECK": true
+}

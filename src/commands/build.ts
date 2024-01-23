@@ -1,22 +1,21 @@
 import path from 'path'
 // import { excelToJson } from '../lib/excel2json'
-// // import { buildConfig} from '../lib/buildConfig'
+import { buildConfig} from '../lib/buildConfig'
 // import { buildTypeScript } from '../lib/buildTypeScript'
 import { copyDirectory } from '../lib/copyDirectory'
 import { buildTypeScript } from '../lib/buildTypeScript'
 import { defaultValues } from '../lib/defaultValues';
-// import fs from 'fs'
+import fs from 'fs'
 
 export const build = async (_source: string | undefined) => {
 
-  // 環境変数を設定
-  const envVars = {
-    PUBLIC_URL: '.',
-    SKIP_PREFLIGHT_CHECK: true
-  };
+  await buildConfig()
+
+  const configPath = path.resolve(defaultValues.providerDir, 'config.json')
+  const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 
   // 現在の環境変数にカスタム環境変数をマージ
-  const env = Object.assign({}, process.env, envVars);
+  const env = Object.assign({}, process.env, config);
 
   await buildTypeScript(env)
 
