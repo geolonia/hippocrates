@@ -10,7 +10,8 @@ const defaultValues_1 = require("./defaultValues");
 const buildTypeScript = async (env) => {
     try {
         console.log(path_1.default.join(defaultValues_1.defaultValues.providerDir, 'tsconfig.json'));
-        const { stdout, stderr } = await (0, execPromise_1.execPromise)(`tsc -p ${path_1.default.join(defaultValues_1.defaultValues.providerDir, 'tsconfig.json')}`, { env });
+        // const { stdout, stderr } = await execPromise(`tsc -p ${path.join(defaultValues.providerDir, 'tsconfig.json')}`, {env});
+        const { stdout, stderr } = await (0, execPromise_1.execPromise)(`echo $MY_VAR && echo $ANOTHER_VAR`, { env });
         console.log(`stdout: ${stdout}`);
         if (stderr) {
             console.error(`stderr: ${stderr}`);
