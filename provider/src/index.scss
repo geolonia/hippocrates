@@ -24,7 +24,7 @@ img
   height: auto;
 }
 
-html, body, #root
+html, body, #root, .app
 {
   width: 100%;
   height: 100%;
@@ -34,12 +34,6 @@ body
 {
   position: fixed;
   overflow: hidden;
-}
-
-#root
-{
-  background: var(--background-image);
-  background-size: cover;
 }
 
 .branding
