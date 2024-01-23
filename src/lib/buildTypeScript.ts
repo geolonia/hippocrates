@@ -1,17 +1,20 @@
 import path from "path";
 import { execPromise } from "./execPromise";
 import { defaultValues } from "./defaultValues";
+import fs from 'fs'
 
 export const buildTypeScript = async (env: NodeJS.ProcessEnv) => {
   try {
-    console.log(path.join(defaultValues.providerDir, 'tsconfig.json'))
-    const { stdout, stderr } = await execPromise(`cd ${defaultValues.providerDir} && react-scripts build`, {env});
 
-    console.log(`stdout: ${stdout}`);
+    await execPromise(`cd ${defaultValues.providerDir}`);
 
-    if (stderr) {
-      console.error(`stderr: ${stderr}`);
+    if (!fs.existsSync(path.join(defaultValues.providerDir, 'node_modules'))) {
+
+      await execPromise(`npm install`);
     }
+
+    await execPromise(`react-scripts build`, {env});
+
   } catch (error) {
     console.error(`実行エラー: ${error}`);
   }
