@@ -8,8 +8,7 @@ exports.build = void 0;
 // import { copyDirectory } from '../lib/copyDirectory'
 const buildTypeScript_1 = require("../lib/buildTypeScript");
 // import fs from 'fs'
-const build = async (source) => {
-    console.log(source);
+const build = async (_source) => {
     // 環境変数を設定
     const envVars = {
         MY_VAR: 'some value',
