@@ -18,11 +18,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noFallthroughCasesInSwitch": true,
-    "outDir": "./build"
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src/global.d.ts",
-    "src/index.tsx"
+    "src"
   ]
 }

@@ -79,3 +79,6 @@ build
 tests/fixtures/*.geojson
 
 src/app/public/data.json
+
+provider/node_modules
+provider/build
