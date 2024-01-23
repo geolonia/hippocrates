@@ -1,17 +1,12 @@
-import path from "path";
 import { execPromise } from "./execPromise";
+import { defaultValues } from "./defaultValues";
 
-export const buildTypeScript = async () => {
-
-  const configPath = path.resolve(process.cwd(), 'src', 'app', 'vite.config.ts');
-
+export const buildTypeScript = async (env: NodeJS.ProcessEnv) => {
   try {
-    const { stderr } = await execPromise(`tsc && vite build --config ${configPath} --emptyOutDir`);
-    if (stderr) {
-      console.error(`stderr: ${stderr}`);
-    }
+
+    await execPromise(`cd ${defaultValues.providerDir} && react-scripts build`, {env});
+
   } catch (error) {
     console.error(`実行エラー: ${error}`);
   }
-
 }
