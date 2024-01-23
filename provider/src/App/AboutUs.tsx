@@ -14,7 +14,7 @@ const Content = () => {
     <div className="about-us">
       <div className="container">
         <div className="branding">
-          <div className="image"><img src={`${import.meta.env.BASE_URL}/icon-pwamap.svg`} alt=""/></div>
+          <div className="image"><img src={`${process.env.PUBLIC_URL}/icon-pwamap.svg`} alt=""/></div>
           <div className="logo">Geolonia PWAマップ</div>
         </div>
 

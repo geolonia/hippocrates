@@ -7,10 +7,12 @@ export const start = async (source: string | undefined) => {
 
   await build(source);
 
-  const distPath = path.resolve(process.cwd(), 'dist');
+  const distPath = path.resolve(process.cwd(), 'build');
+
+  console.log(distPath)
 
   if (!fs.existsSync(distPath)) {
-    console.error('dist ディレクトリが存在しません。ビルドを実行してください。');
+    console.error('build/ ディレクトリが存在しません。');
     return;
   }
 

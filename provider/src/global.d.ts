@@ -1,5 +1,3 @@
-/// <reference types="vite/client" />
-
 declare namespace Pwamap {
   type ShopData = {
     index: number;

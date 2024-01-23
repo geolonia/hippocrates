@@ -35,7 +35,6 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
 jspm_packages/
 src/referers.json
 
@@ -75,10 +74,10 @@ typings/
 # Serverless directories
 .serverless
 
-dist
-
 build
 
 tests/fixtures/*.geojson
 
 src/app/public/data.json
+
+provider/build
