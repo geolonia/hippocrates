@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from "react-router-dom";
-import Container from './Container';
+import App from './App'
 import './index.scss'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 ReactDOM.render(
   <React.StrictMode>
     <HashRouter>
-      <Container />
+      <App />
     </HashRouter>
   </React.StrictMode>,
   document.getElementById('root')
