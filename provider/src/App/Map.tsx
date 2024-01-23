@@ -1,12 +1,11 @@
 import React from "react";
-// @ts-ignore
-import geojsonExtent from '@mapbox/geojson-extent'
-import toGeoJson from './toGeoJson'
 import setCluster from './setCluster'
 import Shop from './Shop'
+import { LngLatLike, GeoJSONFeature } from "maplibre-gl";
 
 type Props = {
   data: Pwamap.ShopData[];
+  bounds: LngLatLike[];
 };
 
 const CSS: React.CSSProperties = {
@@ -46,6 +45,14 @@ const updateHash = (q: URLSearchParams) => {
     window.location.hash = `#/?${q.toString().replace(/%2F/g, '/')}`;
   }
 };
+
+const addLatLngToProperties = (feature: GeoJSONFeature) => {
+  // @ts-ignore
+  const coordinates = feature.geometry.coordinates
+  feature.properties['緯度'] = coordinates[1]
+  feature.properties['経度'] = coordinates[0]
+  return feature.properties as Pwamap.ShopData
+}
 
 const Content = (props: Props) => {
   const mapNode = React.useRef<HTMLDivElement>(null);
@@ -140,13 +147,16 @@ const Content = (props: Props) => {
 
       mapObject.on('click', 'shop-points', (event: any) => {
         if (!event.features[0].properties.cluster) {
-          setShop(event.features[0].properties)
+
+          const properties: Pwamap.ShopData = addLatLngToProperties(event.features[0])
+          setShop(properties)
         }
       })
 
       mapObject.on('click', 'shop-symbol', (event: any) => {
         if (!event.features[0].properties.cluster) {
-          setShop(event.features[0].properties)
+          const properties: Pwamap.ShopData = addLatLngToProperties(event.features[0])
+          setShop(properties)
         }
       })
 
@@ -174,20 +184,17 @@ const Content = (props: Props) => {
 
   React.useEffect(() => {
     // Only once reder the map.
-    if (!mapNode.current || mapObject) {
+    if (!mapNode.current || mapObject || props.bounds.length === 0) {
       return
     }
 
     // @ts-ignore
     const { geolonia } = window;
 
-    const geojson = toGeoJson(props.data)
-    const bounds = geojsonExtent(geojson)
-
     const map = new geolonia.Map({
       container: mapNode.current,
       style: 'geolonia/gsi',
-      bounds: bounds,
+      bounds: props.bounds,
       fitBoundsOptions: { padding: 50 },
     });
 
@@ -203,9 +210,9 @@ const Content = (props: Props) => {
 
       map.flyTo({center: [lng, lat], zoom});
 
-    } else if (bounds) {
+    } else if (props.bounds) {
 
-      map.fitBounds(bounds, { padding: 50 })
+      map.fitBounds(props.bounds, { padding: 50 })
 
     }
 
@@ -243,7 +250,7 @@ const Content = (props: Props) => {
       window.removeEventListener('orientationchange', orienteationchangeHandler)
       map.off('load', onMapLoad)
     }
-  }, [mapNode, mapObject, props.data])
+  }, [mapNode, mapObject, props.bounds, props.data])
 
   const closeHandler = () => {
     setShop(undefined)

@@ -44,6 +44,7 @@
     "http-server": "^14.1.1",
     "icon-gen": "^4.0.0",
     "klaw": "^4.1.0",
+    "maplibre-gl": "^3.6.2",
     "next-qrcode": "^2.0.0",
     "pwa-asset-generator": "^6.0.6",
     "react": "^17.0.2",

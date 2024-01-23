@@ -7,6 +7,9 @@ import List from './App/List'
 import AboutUs from './App/AboutUs'
 
 import Tabbar from './App/Tabbar'
+// @ts-ignore
+import geojsonExtent from '@mapbox/geojson-extent'
+import { LngLatLike } from "maplibre-gl";
 
 const sortShopList = async (shopList: Pwamap.ShopData[]) => {
 
@@ -18,6 +21,7 @@ const sortShopList = async (shopList: Pwamap.ShopData[]) => {
 
 const App = () => {
   const [shopList, setShopList] = React.useState<Pwamap.ShopData[]>([])
+  const [bounds, setBounds] = React.useState<LngLatLike[]>([])
 
   React.useEffect(() => {
     fetch(`${process.env.PUBLIC_URL}/data.geojson?timestamp=${new Date().getTime()}`)
@@ -49,6 +53,8 @@ const App = () => {
           setShopList(sortedShopList)
         })
 
+        const bounds = geojsonExtent(data)
+        setBounds(bounds)
       });
   }, [])
 
@@ -56,7 +62,7 @@ const App = () => {
     <div className="app">
       <div className="app-body">
         <Routes>
-          <Route path="/" element={<Home data={shopList} />} />
+          <Route path="/" element={<Home data={shopList} bounds={bounds}/>} />
           <Route path="/list" element={<List data={shopList} />} />
           <Route path="/about" element={<AboutUs />} />
         </Routes>
