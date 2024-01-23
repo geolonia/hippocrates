@@ -37,14 +37,14 @@ const _excelToGeojson = async (inputDir) => {
         else if (file.path.endsWith(".geojson")) {
             // TODO: GeoJSON を data.geojson 形式に変換する
             // geojson の場合は 拡張子を json にしてdefaultValues.providerDir にコピーする
-            promises.push((0, promises_1.copyFile)(file.path, path_1.default.resolve(defaultValues_1.defaultValues.providerDir, 'data.geojson')));
+            promises.push((0, promises_1.copyFile)(file.path, path_1.default.resolve(defaultValues_1.defaultValues.providerDir, 'public', 'data.geojson')));
             // 1ファイルのみを対象にするために break する
             break;
         }
         if (csvData) {
             try {
                 csv2geojson_1.default.csv2geojson(csvData, async (_err, geojson) => {
-                    await (0, promises_1.writeFile)(path_1.default.resolve(defaultValues_1.defaultValues.providerDir, 'data.geojson'), JSON.stringify(geojson));
+                    await (0, promises_1.writeFile)(path_1.default.resolve(defaultValues_1.defaultValues.providerDir, 'public', 'data.geojson'), JSON.stringify(geojson));
                 });
             }
             catch (err) {
