@@ -11,10 +11,14 @@ const buildConfig_1 = require("../lib/buildConfig");
 const copyDirectory_1 = require("../lib/copyDirectory");
 const buildTypeScript_1 = require("../lib/buildTypeScript");
 const defaultValues_1 = require("../lib/defaultValues");
-// import fs from 'fs'
+const fs_1 = __importDefault(require("fs"));
 const build = async (_source) => {
     await (0, buildConfig_1.buildConfig)();
-    await (0, buildTypeScript_1.buildTypeScript)();
+    const configPath = path_1.default.resolve(defaultValues_1.defaultValues.providerDir, 'config.json');
+    const config = JSON.parse(fs_1.default.readFileSync(configPath, 'utf8'));
+    // 現在の環境変数にカスタム環境変数をマージ
+    const env = Object.assign({}, process.env, config);
+    await (0, buildTypeScript_1.buildTypeScript)(env);
     const innerNPMPath = path_1.default.resolve(defaultValues_1.defaultValues.providerDir, 'build');
     (0, copyDirectory_1.copyDirectory)(innerNPMPath, defaultValues_1.defaultValues.buildDir);
     // const workingDirPath = process.cwd();

@@ -5,13 +5,19 @@ import { buildConfig} from '../lib/buildConfig'
 import { copyDirectory } from '../lib/copyDirectory'
 import { buildTypeScript } from '../lib/buildTypeScript'
 import { defaultValues } from '../lib/defaultValues';
-// import fs from 'fs'
+import fs from 'fs'
 
 export const build = async (_source: string | undefined) => {
 
-
   await buildConfig()
-  await buildTypeScript()
+
+  const configPath = path.resolve(defaultValues.providerDir, 'config.json')
+  const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+
+  // 現在の環境変数にカスタム環境変数をマージ
+  const env = Object.assign({}, process.env, config);
+
+  await buildTypeScript(env)
 
   const innerNPMPath = path.resolve(defaultValues.providerDir, 'build');
 
