@@ -6,21 +6,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.build = void 0;
 const path_1 = __importDefault(require("path"));
 // import { excelToJson } from '../lib/excel2json'
-// // import { buildConfig} from '../lib/buildConfig'
+const buildConfig_1 = require("../lib/buildConfig");
 // import { buildTypeScript } from '../lib/buildTypeScript'
 const copyDirectory_1 = require("../lib/copyDirectory");
 const buildTypeScript_1 = require("../lib/buildTypeScript");
 const defaultValues_1 = require("../lib/defaultValues");
 // import fs from 'fs'
 const build = async (_source) => {
-    // 環境変数を設定
-    const envVars = {
-        PUBLIC_URL: '.',
-        SKIP_PREFLIGHT_CHECK: true
-    };
-    // 現在の環境変数にカスタム環境変数をマージ
-    const env = Object.assign({}, process.env, envVars);
-    await (0, buildTypeScript_1.buildTypeScript)(env);
+    await (0, buildConfig_1.buildConfig)();
+    await (0, buildTypeScript_1.buildTypeScript)();
     const innerNPMPath = path_1.default.resolve(defaultValues_1.defaultValues.providerDir, 'build');
     (0, copyDirectory_1.copyDirectory)(innerNPMPath, defaultValues_1.defaultValues.buildDir);
     // const workingDirPath = process.cwd();

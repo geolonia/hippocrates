@@ -1,6 +1,6 @@
 import path from 'path'
 // import { excelToJson } from '../lib/excel2json'
-// // import { buildConfig} from '../lib/buildConfig'
+import { buildConfig} from '../lib/buildConfig'
 // import { buildTypeScript } from '../lib/buildTypeScript'
 import { copyDirectory } from '../lib/copyDirectory'
 import { buildTypeScript } from '../lib/buildTypeScript'
@@ -9,16 +9,9 @@ import { defaultValues } from '../lib/defaultValues';
 
 export const build = async (_source: string | undefined) => {
 
-  // 環境変数を設定
-  const envVars = {
-    PUBLIC_URL: '.',
-    SKIP_PREFLIGHT_CHECK: true
-  };
 
-  // 現在の環境変数にカスタム環境変数をマージ
-  const env = Object.assign({}, process.env, envVars);
-
-  await buildTypeScript(env)
+  await buildConfig()
+  await buildTypeScript()
 
   const innerNPMPath = path.resolve(defaultValues.providerDir, 'build');
 
