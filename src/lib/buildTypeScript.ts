@@ -5,7 +5,7 @@ import { defaultValues } from "./defaultValues";
 export const buildTypeScript = async (env: NodeJS.ProcessEnv) => {
   try {
     console.log(path.join(defaultValues.providerDir, 'tsconfig.json'))
-    const { stdout, stderr } = await execPromise(`cd provider && react-scripts build`, {env});
+    const { stdout, stderr } = await execPromise(`cd ${defaultValues.providerDir} && react-scripts build`, {env});
 
     console.log(`stdout: ${stdout}`);
 
