@@ -6,9 +6,7 @@
 import { buildTypeScript } from '../lib/buildTypeScript'
 // import fs from 'fs'
 
-export const build = async (source: string | undefined) => {
-
-  console.log(source)
+export const build = async (_source: string | undefined) => {
 
   // 環境変数を設定
   const envVars = {
