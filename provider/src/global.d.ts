@@ -2,7 +2,7 @@ declare namespace Pwamap {
   type ShopData = {
     index: number;
     distance?: number;
-    'タイムスタンプ': string;
+    '名称': string;
     '緯度': string;
     '経度': string;
     'スポット名': string;

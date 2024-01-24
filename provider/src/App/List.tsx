@@ -2,8 +2,6 @@ import React from "react";
 import ShopListItem from './ShopListItem'
 import Shop from './Shop'
 import './List.scss'
-import { useSearchParams } from "react-router-dom";
-import InfiniteScroll from 'react-infinite-scroll-component';
 import { askGeolocationPermission } from '../geolocation'
 import * as turf from "@turf/turf"
 
@@ -41,45 +39,24 @@ const sortShopList = async (shopList: Pwamap.ShopData[]) => {
   }
 }
 
+
 const Content = (props: Props) => {
-
-  const [shop, setShop] = React.useState<Pwamap.ShopData | undefined>()
-  const [data, setData] = React.useState<Pwamap.ShopData[]>(props.data)
-  const [list, setList] = React.useState<any[]>([]);
-  const [page, setPage] = React.useState(10);
-  const [hasMore, setHasMore] = React.useState(true);
-
-  const [searchParams] = useSearchParams();
-  const queryCategory = searchParams.get('category')
+  const [ shop, setShop  ] = React.useState<Pwamap.ShopData | undefined>()
+  const [ data, setData ] = React.useState(props.data)
 
   React.useEffect(() => {
-
-    let data = props.data;
-
-    if (queryCategory) {
-      data = props.data.filter((shop) => {
-        return shop['カテゴリ'] === queryCategory
-      })
-    }
-
     let isMounted = true
-    // prevent memory leak
-    if (isMounted) {
-
-      sortShopList(data)
+    sortShopList(props.data)
       .then(sortedData => {
         // prevent memory leak
-        if (isMounted) {
-          setList(sortedData.slice(0, page))
+        if(isMounted) {
           setData(sortedData)
         }
       })
-    }
-
     return () => {
       isMounted = false
     }
-  }, [props.data, queryCategory, page])
+  }, [props.data])
 
 
   const popupHandler = (shop: Pwamap.ShopData) => {
@@ -92,57 +69,17 @@ const Content = (props: Props) => {
     setShop(undefined)
   }
 
-    //項目を読み込むときのコールバック
-    const loadMore = () => {
-
-      //データ件数が0件の場合、処理終了
-      if (list.length >= data.length) {
-        setHasMore(false);
-        return;
-      }
-
-      setList([...list, ...data.slice(page, page + 10)])
-      setPage(page + 10)
-    }
-
-  const loader = <div
-    className="loader"
-    key={0}
-    style={{
-      width: '100%',
-      height: '200px',
-      textAlign: 'center',
-      position: 'relative',
-      top: '100px'
-    }}
-  >場所一覧を読み込み中です...</div>;
-
   return (
-    <div id="shop-list" className="shop-list">
-      {queryCategory && <div className="shop-list-category">{`カテゴリ：「${queryCategory}」`}</div>}
-
-      <InfiniteScroll
-        dataLength={list.length}
-        next={loadMore}
-        hasMore={hasMore}
-        loader={loader}
-        scrollableTarget="shop-list"
-      >
-        {
-          list.map((item, index) => {
-
-            return (<div key={index} className="shop">
-              <ShopListItem
-                data={item}
-                popupHandler={popupHandler}
-                queryCategory={queryCategory}
-              />
-            </div>)
-
-          })
-        }
-      </InfiniteScroll>
-      {shop ?
+    <div className="shop-list">
+      {
+        data.map((shop) => <div key={shop.index} className="shop">
+          <ShopListItem
+            data={shop}
+            popupHandler={popupHandler}
+          />
+        </div>)
+      }
+      {shop?
         <Shop shop={shop} close={closeHandler} />
         :
         <></>

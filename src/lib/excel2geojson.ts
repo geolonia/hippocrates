@@ -45,8 +45,19 @@ const _excelToGeojson = async (inputDir: string) => {
 
       try {
 
+        let options: { [key: string]: string } = {
+          delimiter: ','
+        }
+
+        const headers = csvData.split(/\r?\n|\r/)[0];
+        if (headers.includes('緯度') && headers.includes('経度')) {
+          options.latfield = '緯度';
+          options.lonfield = '経度';
+        }
+
         csv2geojson.csv2geojson(
           csvData,
+          options,
           async (_err: any, geojson: any) => {
             await writeFile(path.resolve(defaultValues.providerDir, 'public', 'data.geojson'), JSON.stringify(geojson));
           });
