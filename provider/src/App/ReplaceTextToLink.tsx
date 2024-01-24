@@ -1,9 +1,13 @@
 type Props = {
-  text: string
+  text: string | undefined
 }
 
 const ReplaceTextToLink = (props: Props) => {
   const { text } = props;
+
+  if (!text) {
+    return null;
+  }
 
   if (typeof text !== 'string') {
     return (<>{text}</>)
