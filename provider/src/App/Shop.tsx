@@ -21,7 +21,7 @@ const Table = (props: TableProps) => {
     <table className="data-table">
       <tbody>
         {Object.entries(shop)
-          .filter(([key, _]) => key !== '緯度' && key !== '経度' && key === 'index')
+          .filter(([key, _]) => key !== '緯度' && key !== '経度')
           .map(([key, value]) => (
             <tr key={key}>
               <td className="col-1">{key}</td>
