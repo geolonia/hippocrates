@@ -43,7 +43,15 @@ const _excelToGeojson = async (inputDir) => {
         }
         if (csvData) {
             try {
-                csv2geojson_1.default.csv2geojson(csvData, async (_err, geojson) => {
+                let options = {
+                    delimiter: ','
+                };
+                const headers = csvData.split(/\r?\n|\r/)[0];
+                if (headers.includes('緯度') && headers.includes('経度')) {
+                    options.latfield = '緯度';
+                    options.lonfield = '経度';
+                }
+                csv2geojson_1.default.csv2geojson(csvData, options, async (_err, geojson) => {
                     await (0, promises_1.writeFile)(path_1.default.resolve(defaultValues_1.defaultValues.providerDir, 'public', 'data.geojson'), JSON.stringify(geojson));
                 });
             }
