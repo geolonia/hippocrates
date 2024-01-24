@@ -1,12 +1,11 @@
 import React from "react";
-// @ts-ignore
-import geojsonExtent from '@mapbox/geojson-extent'
-import toGeoJson from './toGeoJson'
 import setCluster from './setCluster'
 import Shop from './Shop'
+import { LngLatLike, GeoJSONFeature } from "maplibre-gl";
 
 type Props = {
   data: Pwamap.ShopData[];
+  bounds: LngLatLike[];
 };
 
 const CSS: React.CSSProperties = {
@@ -33,29 +32,22 @@ const hidePoiLayers = (map: any) => {
   }
 }
 
-const parseHash = (url?: Location | URL) => {
-  const qstr = (url || window.location).hash.substring(2);
-  const q = new URLSearchParams(qstr);
-  return q;
-};
-
-const updateHash = (q: URLSearchParams) => {
-
-  const hash = q.toString();
-  if (hash) {
-    window.location.hash = `#/?${q.toString().replace(/%2F/g, '/')}`;
-  }
-};
+const addLatLngToProperties = (feature: GeoJSONFeature) => {
+  // @ts-ignore
+  const coordinates = feature.geometry.coordinates
+  feature.properties['緯度'] = coordinates[1]
+  feature.properties['経度'] = coordinates[0]
+  return feature.properties as Pwamap.ShopData
+}
 
 const Content = (props: Props) => {
   const mapNode = React.useRef<HTMLDivElement>(null);
   const [mapObject, setMapObject] = React.useState<any>()
   const [shop, setShop] = React.useState<Pwamap.ShopData | undefined>(undefined)
-  const [ zLatLngString, setZLatLngString ] = React.useState<string>('');
 
-  const addMarkers = (mapObject: any, data: any) => {
+  const addMarkers = (mapObject: any) => {
 
-    if (!mapObject || !data) {
+    if (!mapObject) {
       return
     }
 
@@ -71,11 +63,10 @@ const Content = (props: Props) => {
       const textColor = '#000000'
       const textHaloColor = '#FFFFFF'
 
-      const geojson = toGeoJson(data)
 
       mapObject.addSource('shops', {
         type: 'geojson',
-        data: geojson,
+        data: './data.geojson',
         cluster: true,
         clusterMaxZoom: 14,
         clusterRadius: 25,
@@ -141,93 +132,49 @@ const Content = (props: Props) => {
 
       mapObject.on('click', 'shop-points', (event: any) => {
         if (!event.features[0].properties.cluster) {
-          setShop(event.features[0].properties)
+
+          const properties: Pwamap.ShopData = addLatLngToProperties(event.features[0])
+          setShop(properties)
         }
       })
 
       mapObject.on('click', 'shop-symbol', (event: any) => {
         if (!event.features[0].properties.cluster) {
-          setShop(event.features[0].properties)
+          const properties: Pwamap.ShopData = addLatLngToProperties(event.features[0])
+          setShop(properties)
         }
       })
 
       setCluster(mapObject)
-
-
     });
 
   }
 
   React.useEffect(() => {
 
-    addMarkers(mapObject, props.data)
+    addMarkers(mapObject)
 
-  }, [mapObject, props.data])
-
-  React.useEffect(() => {
-    const hash = parseHash();
-    if (zLatLngString) {
-      hash.set('map', zLatLngString);
-    }
-    updateHash(hash);
-
-  }, [ zLatLngString ]);
+  }, [mapObject])
 
   React.useEffect(() => {
     // Only once reder the map.
-    if (!mapNode.current || mapObject) {
+    if (!mapNode.current || mapObject || props.bounds.length === 0) {
       return
     }
 
     // @ts-ignore
     const { geolonia } = window;
 
-    const geojson = toGeoJson(props.data)
-    const bounds = geojsonExtent(geojson)
-
     const map = new geolonia.Map({
       container: mapNode.current,
       style: 'geolonia/gsi',
-      bounds: bounds,
+      bounds: props.bounds,
       fitBoundsOptions: { padding: 50 },
     });
-
-    const hash = parseHash();
-    if (hash && hash.get('map')) {
-
-      const latLngString = hash.get('map') || '';
-      const zlatlng = latLngString.split('/');
-
-      const zoom = zlatlng[0]
-      const lat = zlatlng[1]
-      const lng = zlatlng[2]
-
-      map.flyTo({center: [lng, lat], zoom});
-
-    } else if (bounds) {
-
-      map.fitBounds(bounds, { padding: 50 })
-
-    }
 
     const onMapLoad = () => {
       hidePoiLayers(map)
       setMapObject(map)
-
-      map.on('moveend', () => {
-        // see: https://github.com/maplibre/maplibre-gl-js/blob/ba7bfbc846910c5ae848aaeebe4bde6833fc9cdc/src/ui/hash.js#L59
-        const center = map.getCenter(),
-          rawZoom = map.getZoom(),
-          zoom = Math.round(rawZoom * 100) / 100,
-          // derived from equation: 512px * 2^z / 360 / 10^d < 0.5px
-          precision = Math.ceil((zoom * Math.LN2 + Math.log(512 / 360 / 0.5)) / Math.LN10),
-          m = Math.pow(10, precision),
-          lng = Math.round(center.lng * m) / m,
-          lat = Math.round(center.lat * m) / m,
-          zStr = Math.ceil(zoom);
-
-        setZLatLngString(`${zStr}/${lat}/${lng}`);
-      });
     }
 
     const orienteationchangeHandler = () => {
@@ -244,7 +191,7 @@ const Content = (props: Props) => {
       window.removeEventListener('orientationchange', orienteationchangeHandler)
       map.off('load', onMapLoad)
     }
-  }, [mapNode, mapObject, props.data])
+  }, [mapNode, mapObject, props.bounds, props.data])
 
   const closeHandler = () => {
     setShop(undefined)

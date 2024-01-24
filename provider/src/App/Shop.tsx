@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { makeDistanceLabelText } from "./distance-label";
 
 type Props = {
-  shop: Pwamap.ShopData;
+  shop: Pwamap.ShopData
   close: Function;
 }
 
@@ -81,7 +81,6 @@ const Content = (props: Props) => {
             { shop['画像'] && <img src={shop['画像']} alt={shop['スポット名']} style={{width: "100%"}} />}
 
             <p style={{margin: "24px 0", wordBreak: "break-all"}}>{toBreakLine(content)}</p>
-
             <div
               ref={mapNode}
               style={{width: '100%', height: '200px', marginTop: "24px"}}
