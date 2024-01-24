@@ -79,21 +79,21 @@ const Content = (props: Props) => {
               </div>
             }
 
-            <div style={{ margin: "24px 0" }}><Links data={shop} /></div>
-
-            {shop['画像'] && <img className="shop-img" src={shop['画像']} alt={shop['名称']} style={{ width: "100%" }} />}
-
-            <Table shop={shop} />
-
             <div
               ref={mapNode}
-              style={{ width: '100%', height: '200px', marginTop: "24px" }}
+              style={{ width: '100%', height: '200px', marginTop: "24px"}}
               data-lat={shop['緯度']}
               data-lng={shop['経度']}
               data-navigation-control="off"
             ></div>
 
-            <p><a className="small" href={`http://maps.apple.com/?q=${shop['緯度']},${shop['経度']}`}>場所までの道順</a></p>
+            <p style={{marginBottom: "24px"}}>
+              <a className="small" href={`http://maps.apple.com/?q=${shop['緯度']},${shop['経度']}`}>場所までの道順</a>
+            </p>
+
+            {shop['画像'] && <img className="shop-img" src={shop['画像']} alt={shop['名称']} style={{ width: "100%" }} />}
+
+            <Table shop={shop} />
 
           </>
           :
