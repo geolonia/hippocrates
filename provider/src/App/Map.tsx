@@ -168,11 +168,12 @@ const Content = (props: Props) => {
     const map = new geolonia.Map({
       container: mapNode.current,
       style: 'geolonia/gsi',
-      bounds: props.bounds,
-      fitBoundsOptions: { padding: 50 },
     });
 
     const onMapLoad = () => {
+
+      map.fitBounds(props.bounds, { maxZoom: 17 });
+
       hidePoiLayers(map)
       setMapObject(map)
     }
