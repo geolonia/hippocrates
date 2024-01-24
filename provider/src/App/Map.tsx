@@ -102,10 +102,10 @@ const Content = (props: Props) => {
           'text-halo-width': 2,
         },
         layout: {
-          'text-field': "{スポット名}",
+          'text-field': "{名称}",
           'text-font': ['Noto Sans Regular'],
           'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
-          'text-radial-offset': 0.5,
+          'text-radial-offset': 1.2,
           'text-justify': 'auto',
           'text-size': 12,
           'text-anchor': 'top',
@@ -168,6 +168,7 @@ const Content = (props: Props) => {
     const map = new geolonia.Map({
       container: mapNode.current,
       style: 'geolonia/gsi',
+      hash: false
     });
 
     const onMapLoad = () => {

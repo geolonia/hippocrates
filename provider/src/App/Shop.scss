@@ -1,6 +1,6 @@
-.shop-single
-{
+.shop-single {
   position: absolute;
+  width: 100%;
   top: 0;
   bottom: 0;
   left: 0;
@@ -11,9 +11,9 @@
   height: 100%;
   z-index: 10;
 
-  .container
-  {
+  .container {
     height: 100%;
+    width: 100%;
     box-sizing: border-box;
     padding: 16px 16px 120px;
     overflow: scroll;
@@ -22,45 +22,71 @@
     /* Firefox 対応 */
     scrollbar-width: none;
 
-    &::-webkit-scrollbar
-    {
+    &::-webkit-scrollbar {
       display: none;
+    }
+
+    .shop-img {
+      margin-bottom: 10px;
+    }
+
+    .data-table {
+      border-collapse: collapse;
+      width: 100%;
+
+      th,
+      td {
+        border: 1px solid lightgray;
+        padding: 8px;
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      td.col1 {
+        width: 30%;
+      }
+
+      td.col2 {
+        width: 70%;
+      }
+
     }
   }
 
-  h2
-  {
+  h2 {
     font-size: 1.4rem;
     word-break: break-all;
   }
 
-  sup
-  {
+  sup {
     font-size: 0.6rem;
     font-weight: normal;
     padding: 3px;
     border-radius: 6px;
     white-space: nowrap;
-    &.category
-    {
+
+    &.category {
       background-color: #f5b041;
       color: #ffffff;
     }
-    & + sup {
+
+    &+sup {
       margin-left: .5em;
     }
   }
 
-  .head
-  {
+  .head {
     padding: 0 16px;
     background-color: #d2691e;
     box-sizing: border-box;
     height: 44px;
     text-align: right;
 
-    button
-    {
+    button {
       position: relative;
       background-color: transparent;
       margin: 0;
@@ -71,8 +97,7 @@
       padding-left: 18px;
       font-size: 1rem;
 
-      svg
-      {
+      svg {
         position: absolute;
         top: 50%;
         left: 0;
@@ -83,28 +108,26 @@
     }
   }
 
-  .category, .distance
-  {
+  .category,
+  .distance {
     border-radius: 4px;
     color: #ffffff;
     padding: 4px;
     font-size: 0.8rem;
   }
 
-  .category
-  {
+  .category {
     background-color: #f5b041;
-    &:hover
-    {
+
+    &:hover {
       opacity: 0.8;
     }
   }
 
-  .distance
-  {
+  .distance {
     background-color: #41b0f5;
-    &:hover
-    {
+
+    &:hover {
       opacity: 0.8;
     }
   }

@@ -11,14 +11,6 @@ import Tabbar from './App/Tabbar'
 import geojsonExtent from '@mapbox/geojson-extent'
 import { LngLatLike } from "maplibre-gl";
 
-const sortShopList = async (shopList: Pwamap.ShopData[]) => {
-
-  // 新着順にソート
-  return shopList.sort(function (item1, item2) {
-    return Date.parse(item2['タイムスタンプ']) - Date.parse(item1['タイムスタンプ'])
-  });
-}
-
 const App = () => {
   const [shopList, setShopList] = React.useState<Pwamap.ShopData[]>([])
   const [bounds, setBounds] = React.useState<LngLatLike[]>([])
@@ -37,10 +29,6 @@ const App = () => {
         for (let i = 0; i < features.length; i++) {
           const properties = features[i].properties as Pwamap.ShopData
 
-          if (!properties['スポット名']) {
-            continue;
-          }
-
           const shop = {
             ...properties,
             index: i
@@ -49,9 +37,7 @@ const App = () => {
           nextShopList.push(shop)
         }
 
-        sortShopList(nextShopList).then((sortedShopList) => {
-          setShopList(sortedShopList)
-        })
+        setShopList(nextShopList)
 
         const bounds = geojsonExtent(data)
         setBounds(bounds)
