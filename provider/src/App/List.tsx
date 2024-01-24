@@ -66,23 +66,14 @@ const Content = (props: Props) => {
     // prevent memory leak
     if (isMounted) {
 
-      const orderBy = process.env.REACT_APP_ORDERBY
-
-      if (orderBy === 'distance') {
-
-        sortShopList(data)
-          .then(sortedData => {
-            // prevent memory leak
-            if (isMounted) {
-              setList(sortedData.slice(0, page))
-              setData(sortedData)
-            }
-          })
-
-      } else {
-        setList(data.slice(0, page))
-        setData(data)
-      }
+      sortShopList(data)
+      .then(sortedData => {
+        // prevent memory leak
+        if (isMounted) {
+          setList(sortedData.slice(0, page))
+          setData(sortedData)
+        }
+      })
     }
 
     return () => {
