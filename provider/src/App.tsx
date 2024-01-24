@@ -29,6 +29,11 @@ const App = () => {
         for (let i = 0; i < features.length; i++) {
           const properties = features[i].properties as Pwamap.ShopData
 
+          // 緯度と経度プロパティを追加
+          const coordinates = features[i].geometry.coordinates
+          properties['緯度'] = coordinates[1]
+          properties['経度'] = coordinates[0]
+
           const shop = {
             ...properties,
             index: i
